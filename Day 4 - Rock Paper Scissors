@@ -28,12 +28,15 @@ scissors = '''
 '''
 
 rps_list = [rock, paper, scissors]
+opponent_choice = random.choice(rps_list)
 
 print('What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors: ')
 player_choice = int(input())
+if player_choice > 2:
+    print('Invalid selection')
+    exit()
+    
 print(rps_list[player_choice])
-
-opponent_choice = random.choice(rps_list)
 print(opponent_choice)
 
 if rps_list[player_choice] == opponent_choice:
