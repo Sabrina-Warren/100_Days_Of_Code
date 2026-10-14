@@ -1,40 +1,59 @@
 import random
-word_list = ["aardvark", "baboon", "camel"]
+from hangman_art import logo
+from hangman_art import stages
+from hangman_words import word_list
+
+print(logo)
 
 chosen_word = random.choice(word_list)
 print(chosen_word)
 
-placeholder = ''
-for inc in range(len(chosen_word)):
-    placeholder += '_'
-print(placeholder)
-
+display = []
+win_condition = False
 lives = 6
+guesses = [ ]
 
-while lives > 0:
+for inc in range(len(chosen_word)):
+    display.append('_')
+print(''.join(display))
+
+while lives > 0 and win_condition is not True:
 
     guess = input('Guess a letter: ').lower()
-
-    if guess in chosen_word:
-        print('Right')
-
-        display = '_'
-
-
-        # TODO-2: Change the for loop so that you keep the previous correct letters in display.
-
-        for inc in range(len(chosen_word)):
-            if display[inc] == chosen_word[inc]:
-                display += chosen_word[inc]
-            elif chosen_word[inc] == guess:
-                display += guess
-            else:
-                display += '_'
-        print(display)
+    if guess in guesses:
+        print("You've already guessed this letter!")
     else:
-        print('Wrong')
-        lives -= 1
+        if guess in chosen_word:
 
-    print(f'Lives: {lives}')
+            for inc in range(len(chosen_word)):
+                if chosen_word[inc] == guess:
+                    display[inc] = guess
+                elif display[inc] == chosen_word[inc]:
+                    display[inc] = chosen_word[inc]
+                else:
+                    display[inc] = '_'
+            print(''.join(display))
+        else:
+            lives -= 1
+            print(f"You guessed {guess}, that's not in the word. You lose a life")
+            print(f"You now have {lives}/6 lives")
+            print(''.join(display))
 
+        space_count = 0
 
+        for inc in range(len(display)):
+            if display[inc] == '_':
+                space_count += 1
+
+        if space_count == 0:
+            win_condition = True
+
+        print(stages[lives])
+
+    guesses.append(guess)
+
+if win_condition:
+    print('You Won!')
+else:
+    print('You Lost :(')
+    print(f'The correct word was {chosen_word}')
