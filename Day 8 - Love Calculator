@@ -1,0 +1,34 @@
+#To work out the love score between two people: 
+#1. Take both people's names and check for the number of times the letters in the word TRUE occurs.   
+#2. Then check for the number of times the letters in the word LOVE occurs.   
+#3. Then combine these numbers to make a 2 digit number and print it out. 
+
+def calculate_love_score(name1, name2):
+    
+    name1 = name1.lower()
+    name1_true = 0
+    name1_love = 0
+    
+    name2 = name2.lower()
+    name2_true = 0
+    name2_love = 0
+    
+    for inc in name1:
+        for inc2 in "true":
+            if inc == inc2:
+                name1_true += 1
+        for inc2 in "love":
+            if inc == inc2:
+                name1_love += 1
+    
+    for inc in name2:
+        for inc2 in "true":
+            if inc == inc2:
+                name2_true += 1
+        for inc2 in "love":
+            if inc == inc2:
+                name2_love += 1
+    
+    print(f"{name1_true + name2_true}{name1_love + name2_love}")
+
+calculate_love_score("Dolly Parton", "Carl Thomas Dean")
